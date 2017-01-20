@@ -4,8 +4,8 @@
   "description": "Choir Master",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
-    "start": "./node_modules/.bin/eslint **.js && node --harmony index.js"
+    "test": "mocha",
+    "start": "eslint **.js && node --harmony index.js"
   },
   "author": "",
   "license": "Apache-2.0",
