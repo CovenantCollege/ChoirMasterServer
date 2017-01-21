@@ -1,6 +1,6 @@
 let express = require('express');
 
-let database = require('./database.js').connect();
+let database = require('./lib/database.js').connect();
 
 let app = express();
 app.get('/', async (req, res) => {
