@@ -4,7 +4,7 @@
   "description": "Choir Master",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --harmony",
     "start": "eslint **.js && node --harmony index.js"
   },
   "author": "",
