@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --harmony test/**.js",
-    "start": "eslint **.js && node --harmony index.js"
+    "start": "eslint **/**.js && node --harmony index.js"
   },
   "author": "",
   "license": "Apache-2.0",

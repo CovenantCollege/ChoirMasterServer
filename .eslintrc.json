@@ -10,41 +10,44 @@
     "extends": "eslint:recommended",
     "rules": {
         "no-console": ["off"],
-        "indent": ["error", 2],
-        "quotes": ["error", "single", {
+        "indent": ["warn", 2],
+        "quotes": ["warn", "single", {
           "avoidEscape": true,
           "allowTemplateLiterals": true
           }
         ],
-        "semi": ["error", "always"],
+        "semi": ["warn", "always"],
 
-        "array-bracket-spacing": ["error", "never"],
-        "block-spacing": ["error", "always"],
-        "camelcase": ["error", { "properties": "always" }],
-        "comma-dangle": ["error", "never"],
-        "comma-spacing": ["error"],
-        "comma-style": ["error"],
-        "eol-last": ["error", "always"],
-        "computed-property-spacing": ["error", "never"],
-        "func-call-spacing": ["error", "never"],
-        "key-spacing": ["error"],
-        "keyword-spacing": ["error"],
-        "new-cap": ["error"],
-        "new-parens": ["error"],
-        "no-trailing-spaces": ["error"],
-        "no-underscore-dangle": ["error"],
-        "object-curly-spacing": ["error", "always"],
-        "semi-spacing": ["error"],
-        "space-before-blocks": ["error"],
-        "space-before-function-paren": ["error", {
+        "array-bracket-spacing": ["warn", "never"],
+        "block-spacing": ["warn", "always"],
+        "camelcase": ["warn", { "properties": "always" }],
+        "comma-dangle": ["warn", "never"],
+        "comma-spacing": ["warn"],
+        "comma-style": ["warn"],
+        "eol-last": ["warn", "always"],
+        "computed-property-spacing": ["warn", "never"],
+        "func-call-spacing": ["warn", "never"],
+        "key-spacing": ["warn"],
+        "keyword-spacing": ["warn"],
+        "new-cap": ["warn"],
+        "new-parens": ["warn"],
+        "no-trailing-spaces": ["warn"],
+        "no-underscore-dangle": ["warn"],
+        "object-curly-spacing": ["warn", "always"],
+        "semi-spacing": ["warn"],
+        "space-before-blocks": ["warn"],
+        "space-before-function-paren": ["warn", {
             "anonymous": "always",
             "asyncArrow": "always",
             "named": "never"
           }
         ],
-        "space-in-parens": ["error"],
+        "space-in-parens": ["warn"],
 
-        "arrow-spacing": ["error"],
-        "no-var": ["error"]
+        "arrow-spacing": ["warn"],
+        "no-var": ["warn"],
+
+        "complexity": ["warn", { "max": 6 }],
+        "max-statements": ["warn", { "max": 30 }]
     }
 }
