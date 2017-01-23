@@ -1,4 +1,3 @@
-let assert = require('assert');
 let expect = require('expect');
 
 describe('This test', function() {

@@ -4,5 +4,9 @@ module.exports = {
     'user': 'choirmaster',
     'password': 'choirmaster',
     'database': 'choirmaster'
+  },
+
+  'authentication': {
+    'encryptionKey': 'changethisatonce'
   }
 };

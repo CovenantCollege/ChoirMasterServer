@@ -1,12 +1,16 @@
 let express = require('express');
-
-let database = require('./lib/database.js').connect();
+let bodyParser = require('body-parser');
+let database = require('./src/modules/database.js').connect();
+let authenticationMiddleware = require('./src/middleware/authentication.js');
 
 let app = express();
-app.get('/', async (req, res) => {
-  let results = await database.query('SELECT 1 + 1 AS solution');
+app.use(bodyParser.json());
 
-  res.send(results[0].solution.toString());
-});
+require('./src/controllers/sqlDemo.js')(app, database);
+require('./src/controllers/authentication.js')(app, database);
+
+app.use(authenticationMiddleware);
+
+require('./src/controllers/singers.js')(app, database);
 
 app.listen(4567, () => console.log('API server listening on port 4567'));
