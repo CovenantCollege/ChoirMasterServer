@@ -1,6 +1,7 @@
 # ChoirMaster Server
 
 [![Build Status](https://travis-ci.org/CovenantCollege/ChoirMasterServer.svg?branch=master)](https://travis-ci.org/CovenantCollege/ChoirMasterServer)
+[![Code Climate](https://codeclimate.com/github/CovenantCollege/ChoirMasterServer/badges/gpa.svg)](https://codeclimate.com/github/CovenantCollege/ChoirMasterServer)
 
 ## Overview
 
