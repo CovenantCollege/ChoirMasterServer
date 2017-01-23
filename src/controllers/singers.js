@@ -2,7 +2,7 @@ let singerStore = require('../stores/singerStore.js');
 
 module.exports = function singersController(app) {
   app.get('/singers', (req, res) => {
-    res.send(singersDatabase);
+    res.send(singerStore.findAll());
   });
 
   app.post('/singers', (req, res) => {
