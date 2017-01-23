@@ -33,7 +33,7 @@ function insert(singerData) {
   return singerData;
 }
 
-function _findIndex(singerId) {
+function findIndex(singerId) {
   let indexOfSinger = singersDatabase.findIndex(singer => singer.id == singerId);
   if (indexOfSinger === -1) {
     throw new Error('Singer not found');
@@ -46,11 +46,11 @@ function update(singerId, newFields) {
   validateSinger(newFields);
 
   newFields.id = singerId;
-  singersDatabase.splice(_findIndex(singerId), 1, newFields);
+  singersDatabase.splice(findIndex(singerId), 1, newFields);
 }
 
 function remove(singerId) {
-  singersDatabase.splice(_findIndex(singerId), 1);
+  singersDatabase.splice(findIndex(singerId), 1);
 }
 
 module.exports = { find, findAll, insert, update, remove };
