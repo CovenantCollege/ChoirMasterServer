@@ -1,4 +1,4 @@
-{
+module.exports = {
     "parserOptions": {
       "ecmaVersion": 2017
     },
@@ -50,4 +50,4 @@
         "complexity": ["warn", { "max": 6 }],
         "max-statements": ["warn", { "max": 30 }]
     }
-}
+};
