@@ -1,6 +1,9 @@
 # ChoirMaster Server
 
+[![Build Status](https://travis-ci.org/CovenantCollege/ChoirMasterServer.svg?branch=master)](https://travis-ci.org/CovenantCollege/ChoirMasterServer)
+
 ## Overview
+
 This is the server repository for Choir Master, a project started by Covenant College to help choir directors arrange their singers.
 
 ## Getting Started
