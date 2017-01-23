@@ -20,9 +20,6 @@ module.exports = function singersController(app) {
     newSinger.id = singerId++;
     singersDatabase.push(newSinger);
 
-    res.send({
-      result: 'success',
-      singer: newSinger
-    })
+    res.status(201).send(newSinger);
   });
 };
