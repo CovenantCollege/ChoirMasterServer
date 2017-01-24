@@ -1,6 +1,6 @@
-let singerStore = require('../stores/singerStore.js');
+module.exports = function singersController(app, db) {
+  let singerStore = require('../stores/singerStore.js')(db);
 
-module.exports = function singersController(app) {
   app.get('/singers', (req, res) => {
     res.send(singerStore.findAll());
   });
