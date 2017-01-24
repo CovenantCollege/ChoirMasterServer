@@ -1,9 +1,11 @@
 let express = require('express');
+let cors = require('cors');
 let bodyParser = require('body-parser');
 let database = require('./src/modules/database.js').connect();
 let authenticationMiddleware = require('./src/middleware/authentication.js');
 
 let app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 require('./src/controllers/sqlDemo.js')(app, database);
