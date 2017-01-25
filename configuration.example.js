@@ -10,6 +10,10 @@ module.exports = {
 
   'authentication': {
     'encryptionKey': 'changethisatonce'
+  },
+
+  'server': {
+    'port': 4567
   }
 };
 
@@ -20,4 +24,6 @@ if (process.env.HEROKU) {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME
   };
+
+  module.exports.server.port = process.env.PORT;
 }

@@ -1,6 +1,9 @@
 let express = require('express');
 let cors = require('cors');
 let bodyParser = require('body-parser');
+
+let configuration = require('./configuration.js');
+
 let database = require('./src/modules/database.js').connect();
 let authenticationMiddleware = require('./src/middleware/authentication.js');
 
@@ -15,4 +18,4 @@ app.use(authenticationMiddleware);
 
 require('./src/controllers/singers.js')(app, database);
 
-app.listen(4567, () => console.log('API server listening on port 4567'));
+app.listen(configuration.server.port, () => console.log('API server listening on port 4567'));
