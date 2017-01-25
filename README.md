@@ -9,7 +9,7 @@ This is the server repository for Choir Master, a project started by Covenant Co
 
 ## Getting Started
 1. Install [Node.js](https://nodejs.org/en/) v7.4.0 and clone this git repository
-2. Open a command prompt in the cloned directory and run `npm run install`
+2. Open a command prompt in the cloned directory and run `npm run setup`
 4. Install mysql and run migrations/demo.sql
 
 Once the installation is done, you can run some commands inside the project folder:

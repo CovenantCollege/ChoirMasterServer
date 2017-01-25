@@ -9,7 +9,7 @@
   "scripts": {
     "test": "mocha --harmony test/**.js",
     "start": "eslint index.js src/**/**.js test/**/**.js && node --harmony index.js",
-    "install": "cp configuration.example.js configuration.js && npm install && npm install -g mocha eslint && npm run client:install",
+    "setup": "cp configuration.example.js configuration.js && npm install && npm install -g mocha eslint && npm run client:install",
     "client:install": "git clone https://github.com/CovenantCollege/ChoirMasterClient.git client && cd client && npm install && npm install -g create-react-app && npm install -g react-scripts && npm run build && cd ..",
     "client:update": "cd client && git pull && npm run build && cd .."
   },
