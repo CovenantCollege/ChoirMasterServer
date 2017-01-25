@@ -9,7 +9,9 @@
   "scripts": {
     "test": "mocha --harmony test/**.js",
     "start": "eslint index.js src/**/**.js test/**/**.js && node --harmony index.js",
-    "heroku-postbuild": "cp configuration.example.js configuration.js && git clone https://github.com/CovenantCollege/ChoirMasterClient.git client && cd client && npm install && npm install -g create-react-app && npm install -g react-scripts && npm run build"
+    "heroku-postbuild": "cp configuration.example.js configuration.js && npm run client:download && npm run client:update",
+    "client:install": "git clone https://github.com/CovenantCollege/ChoirMasterClient.git client && cd client && npm install && npm install -g create-react-app && npm install -g react-scripts && npm run build && cd ..",
+    "client:update": "cd client && git pull && npm run build && cd .."
   },
   "author": "",
   "license": "Apache-2.0",

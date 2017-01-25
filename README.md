@@ -14,6 +14,7 @@ This is the server repository for Choir Master, a project started by Covenant Co
 4. In the same command prompt run `npm install -g mocha eslint`.
 5. Make a copy of `configuration.example.js` named `configuration.js` and fill in the credentials for your database server.
 6. Run migrations/demo.sql to create the table needed for the singers demo
+7. Run `npm run client:install`
 
 Once the installation is done, you can run some commands inside the project folder:
 
@@ -24,3 +25,7 @@ Runs the server.  In order to use the server you'll need to build and run the cl
 ### `npm test`
 
 Runs the complete suite of tests that have been written for the server.  We strongly encourage you to write tests for every new feature you write.
+
+### `npm run client:update`
+
+Downloads and compiles the latest client version
