@@ -1,3 +1,4 @@
+let process = require('process');
 let express = require('express');
 let cors = require('cors');
 let bodyParser = require('body-parser');
@@ -11,6 +12,12 @@ let storesMiddleware = require('./src/middleware/stores.js');
 let app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+if (process.env.HEROKU) {
+  app.use(express.static('client/build'));
+}
+
+
 app.use(databaseMiddleware.open);
 app.use(storesMiddleware);
 
