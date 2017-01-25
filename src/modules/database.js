@@ -6,7 +6,7 @@ class Database {
     this.connection = connection;
   }
 
-  static connect() {
+  static async connect() {
     let connection = mysql.createConnection(configuration.database);
 
     connection.connect((error) => {
