@@ -8,7 +8,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --harmony test/**.js",
-    "start": "eslint index.js src/**/**.js test/**/**.js && node --harmony index.js"
+    "start": "eslint index.js src/**/**.js test/**/**.js && node --harmony index.js",
+    "heroku-postbuild": "cp configuration.example.js configuration.js"
   },
   "author": "",
   "license": "Apache-2.0",
