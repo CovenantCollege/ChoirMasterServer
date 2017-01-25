@@ -10,8 +10,7 @@ This is the server repository for Choir Master, a project started by Covenant Co
 ## Getting Started
 1. Clone the git repository.
 2. Install [Node.js](https://nodejs.org/en/) v7.4.0.
-3. Open a command prompt in the cloned directory and run `npm install`.
-4. In the same command prompt run `npm install -g mocha eslint`.
+3. Open a command prompt in the cloned directory and run `npm install && npm install -g mocha eslint`.
 5. Make a copy of `configuration.example.js` named `configuration.js` and fill in the credentials for your database server.
 6. Run migrations/demo.sql to create the table needed for the singers demo
 7. Run `npm run client:install`
