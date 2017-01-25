@@ -17,7 +17,6 @@ if (process.env.HEROKU) {
   app.use(express.static('client/build'));
 }
 
-
 app.use(databaseMiddleware.open);
 app.use(storesMiddleware);
 
