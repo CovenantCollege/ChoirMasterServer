@@ -1,6 +1,7 @@
 let express = require('express');
 let cors = require('cors');
 let bodyParser = require('body-parser');
+let process = require('process');
 
 let configuration = require('./configuration.js');
 
@@ -12,7 +13,12 @@ let app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use(express.static('client/build'));
+if (process.env.NO_STATIC_ROOT) {
+  app.use(express.static('client/build'));
+} else {
+  app.use('/choirmaster', express.static('client/build'));
+}
+
 
 app.use(databaseMiddleware.open);
 app.use(storesMiddleware);
