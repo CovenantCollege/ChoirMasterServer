@@ -50,6 +50,12 @@ class OrganizationStore extends Store {
   async remove(orgId) {
     await this.database.query('DELETE FROM Organizations WHERE orgId = ?', [orgId]);
   }
+
+  async exists(orgId) {
+    let result = await this.database.query('SELECT COUNT(*) AS orgCount FROM Organizations WHERE orgId = ?', [orgId]);
+
+    return result[0].orgCount >= 1;
+  }
 }
 
 module.exports = OrganizationStore;
