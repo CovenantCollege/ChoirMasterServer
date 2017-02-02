@@ -12,7 +12,7 @@ function validateOrganization(organizationData) {
 
 class OrganizationStore extends Store {
   async find(orgId) {
-    let results = await this.database.query('SELECT * from organizations WHERE id = ?', [orgId]);
+    let results = await this.database.query('SELECT * from Organizations WHERE id = ?', [orgId]);
 
     if (results.length == 0) {
       throw new Error('Organization not found');
@@ -22,23 +22,23 @@ class OrganizationStore extends Store {
   }
 
   async findAll() {
-    return this.database.query('SELECT * from organizations');
+    return this.database.query('SELECT * from Organizations');
   }
 
   async insert(organizationData) {
     validateOrganization(organizationData);
 
-    let result = await this.database.query('INSERT INTO organizations (name) VALUES (?)', [organizationData.name]);
+    let result = await this.database.query('INSERT INTO Organizations (name) VALUES (?)', [organizationData.name]);
     return result.insertId;
   }
 
   async update(orgId, organizationData) {
     validateOrganization(organizationData);
-    await this.database.query('UPDATE organizations SET name = ? WHERE ID = ?', [organizationData.name, orgId]);
+    await this.database.query('UPDATE Organizations SET name = ? WHERE ID = ?', [organizationData.name, orgId]);
   }
 
   async remove(orgId) {
-    await this.database.query('DELETE FROM organizations WHERE id = ?', [orgId]);
+    await this.database.query('DELETE FROM Organizations WHERE id = ?', [orgId]);
   }
 }
 
