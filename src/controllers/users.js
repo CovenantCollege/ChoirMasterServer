@@ -6,8 +6,6 @@ module.exports = function usersController(app) {
     let userPassword = passwordGenerator.generate({ length: 7, numbers: true });
 
     try {
-      console.log(JSON.stringify(req.body));
-
       let userData = {
         email: req.body.email,
         password: userPassword

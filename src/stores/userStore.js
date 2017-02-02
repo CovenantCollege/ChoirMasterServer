@@ -47,11 +47,21 @@ class UserStore extends Store {
     validateUser(userData);
 
     let hashedPassword = await bcrypt.hash(userData.password, BCRYPT_SALT_ROUNDS);
-    await this.database.query('INSERT INTO Users (email, password) VALUES (?, ?)', [userData.email, hashedPassword]);
+    await this.database.query('INSERT INTO Users (username, email, password) VALUES ("", ?, ?)', [userData.email, hashedPassword]);
   }
 
   async find(userId) {
     let results = await this.database.query('SELECT * from Users WHERE userId = ?', [userId]);
+
+    if (results.length == 0) {
+      throw new Error('User not found');
+    }
+
+    return results[0];
+  }
+
+  async findByEmail(userEmail) {
+    let results = await this.database.query('SELECT * from Users WHERE email = ?', [userEmail]);
 
     if (results.length == 0) {
       throw new Error('User not found');

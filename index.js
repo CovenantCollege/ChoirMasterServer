@@ -5,8 +5,9 @@ let process = require('process');
 
 let configuration = require('./configuration.js');
 
-let databaseMiddleware = require('./src/middleware/database.js');
+let errorHandlingMiddleware = require('./src/middleware/errorHandlingMiddleware.js');
 let authenticationMiddleware = require('./src/middleware/authentication.js');
+let databaseMiddleware = require('./src/middleware/database.js');
 let storesMiddleware = require('./src/middleware/stores.js');
 
 let app = express();
@@ -19,7 +20,7 @@ if (process.env.NO_STATIC_ROOT) {
   app.use('/choirmaster', express.static('client/build'));
 }
 
-
+app.use(errorHandlingMiddleware);
 app.use(databaseMiddleware.open);
 app.use(storesMiddleware);
 
@@ -30,6 +31,7 @@ app.use(authenticationMiddleware);
 
 require('./src/controllers/users.js')(app);
 require('./src/controllers/singers.js')(app);
+require('./src/controllers/organizations.js')(app);
 
 app.use(databaseMiddleware.close);
 
