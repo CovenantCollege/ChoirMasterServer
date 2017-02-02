@@ -6,8 +6,6 @@ async function signIn(email, password, userStore) {
     return false;
   }
 
-  console.log(email);
-
   return jwt.sign({ email, signedIn: true }, configuration.authentication.encryptionKey);
 }
 
