@@ -14,6 +14,14 @@ module.exports = {
 
   'server': {
     'port': 4567
+  },
+
+  'email': {
+    'transporter': 'gmail',
+    'auth': {
+      'user': 'yourgmailusername',
+      'pass': 'yourgmailpassword'
+    }
   }
 };
 
