@@ -12,11 +12,15 @@ function validateSinger(singerData) {
   if (singerData.height == null) {
     throw new Error('Singers must hava a height');
   }
+
+  if (singerData.orgId == null) {
+    throw new Error('Singers must belong to an organization');
+  }
 }
 
 class SingerStore extends Store {
   async find(singerId) {
-    let results = await this.database.query('SELECT * from Singers WHERE orgId = ?', [singerId]);
+    let results = await this.database.query('SELECT * from Singers WHERE singerId = ?', [singerId]);
 
     if (results.length == 0) {
       throw new Error('Singer not found');
@@ -25,8 +29,8 @@ class SingerStore extends Store {
     return results[0];
   }
 
-  async findAll(organizationData) {
-    return this.database.query('SELECT * from Singers WHERE orgId = ?', [organizationData.orgId]);
+  async findAll(organizationId) {
+    return this.database.query('SELECT * from Singers WHERE orgId = ?', [organizationId]);
   }
 
   async insert(singerData) {
