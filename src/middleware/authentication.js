@@ -28,10 +28,17 @@ module.exports = function authenticationMiddleware(request, response, next) {
 
   let jwtToken = headerParts[1];
 
-  if (!authenticationModule.validate(jwtToken)) {
+  let validationResult = authenticationModule.validate(jwtToken);
+  if (!validationResult) {
     response.status(401).send({ error: 'Invalid jwt token' });
     return;
   }
 
+  if (validationResult.signedIn !== true) {
+    response.status(401).send({ error: 'You are not signed in' });
+    return;
+  }
+
+  request.authentication = validationResult;
   next();
 };

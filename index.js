@@ -24,10 +24,11 @@ app.use(databaseMiddleware.open);
 app.use(storesMiddleware);
 
 require('./src/controllers/sqlDemo.js')(app);
-require('./src/controllers/authentication.js')(app);
+require('./src/controllers/sessions.js')(app);
 
 app.use(authenticationMiddleware);
 
+require('./src/controllers/users.js')(app);
 require('./src/controllers/singers.js')(app);
 
 app.use(databaseMiddleware.close);

@@ -3,13 +3,21 @@ let expect = require('expect');
 
 describe('the authentication module', function () {
   describe('#signIn', function () {
-    it('should generate a token given valid credentials', function () {
-      let generatedToken = authentication.signIn('someone@somewhere.com', 'password');
+    before(function () {
+      this.fakeUserStore = {
+        checkPassword: async function (email, password) {
+          return password === 'password';
+        }
+      };
+    });
+
+    it('should generate a token given valid credentials', async function () {
+      let generatedToken = await authentication.signIn('someone@somewhere.com', 'password', this.fakeUserStore);
       expect(generatedToken).toBeA('string');
     });
 
-    it('should return false given invalid credentials', function () {
-      let result = authentication.signIn('someone@somewhere.com', 'notthepassword');
+    it('should return false given invalid credentials', async function () {
+      let result = await authentication.signIn('someone@somewhere.com', 'notthepassword', this.fakeUserStore);
       expect(result).toBe(false);
     });
   });
@@ -21,8 +29,11 @@ describe('the authentication module', function () {
       this.malformedToken = 'lasekjfdfjskljshjkhkjhgklhdjgsdjkgjdakrg';
     });
 
-    it('should return true given a valid token', function () {
-      expect(authentication.validate(this.validToken)).toBe(true);
+    it('should return the authentication data given a valid token', function () {
+      expect(authentication.validate(this.validToken)).toMatch({
+        email: 'someone@somewhere.com',
+        signedIn: true
+      });
     });
 
     it('should return false given an invalid token', function () {
