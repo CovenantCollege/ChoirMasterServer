@@ -79,6 +79,12 @@ class UserStore extends Store {
     let newHash = await bcrypt.hash(newPassword, BCRYPT_SALT_ROUNDS);
     await this.database.query('UPDATE Users SET password = ? WHERE userId = ?', [newHash, userId]);
   }
+
+  async exists(email) {
+    let result = await this.database.query('SELECT COUNT(*) AS userCount FROM Users WHERE email = ?', [email]);
+
+    return result[0].userCount >= 1;
+  }
 }
 
 module.exports = UserStore;

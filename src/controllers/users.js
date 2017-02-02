@@ -3,16 +3,19 @@ let sendInvitationEmail = require('../modules/invitationEmailSender');
 
 module.exports = function usersController(app) {
   app.post('/users', async (req, res) => {
-    let userPassword = passwordGenerator.generate({ length: 7, numbers: true });
+    if (await req.users.exists(req.body.email)) {
+      res.status(403).send({ error: 'There is already a user with that email address' });
+      return;
+    }
 
     try {
       let userData = {
         email: req.body.email,
-        password: userPassword
+        password: passwordGenerator.generate({ length: 7, numbers: true })
       };
 
       await req.users.create(userData);
-      await sendInvitationEmail(userData.email, userPassword);
+      await sendInvitationEmail(userData.email, userData.password);
     } catch(e) {
       res.status(400).send({ error: e.message || 'Error creating user' });
       return;
