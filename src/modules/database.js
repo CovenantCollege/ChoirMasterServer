@@ -6,24 +6,28 @@ class Database {
     this.connection = connection;
   }
 
-  static async connect() {
-    let connection = mysql.createConnection(configuration.database);
+  static connect() {
+    return new Promise((resolve, reject) => {
+      let connection = mysql.createConnection(configuration.database);
 
-    connection.connect((error) => {
-      if (error) {
-        console.error("Error: couldn't connect to database.");
-        throw error;
-      }
+      connection.connect((error) => {
+        if (error) {
+          console.error("Error: couldn't connect to database.");
+          reject(error);
+          return;
+        }
+
+        resolve(new Database(connection));
+      });
     });
-
-    return new Database(connection);
   }
 
-  async query(queryString, queryValues) {
+  query(queryString, queryValues) {
     return new Promise((resolve, reject) => {
       let callback = (error, results) => {
         if (error) {
           reject(error);
+          return;
         }
 
         resolve(results);
