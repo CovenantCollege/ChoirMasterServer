@@ -1,9 +1,8 @@
 let configuration = require('../../configuration.js');
 let jwt = require('jsonwebtoken');
 
-function signIn(email, password) {
-  // TODO: actually validate the user's credentials
-  if (password != 'password') {
+async function signIn(email, password, userStore) {
+  if (!await userStore.checkPassword(email, password)) {
     return false;
   }
 
@@ -12,8 +11,7 @@ function signIn(email, password) {
 
 function validate(jwtToken) {
   try {
-    let decodedToken = jwt.verify(jwtToken, configuration.authentication.encryptionKey);
-    return decodedToken.signedIn === true;
+    return jwt.verify(jwtToken, configuration.authentication.encryptionKey);
   } catch (e) {
     return false;
   }

@@ -1,10 +1,17 @@
 module.exports = function singersController(app) {
-  app.get('/singers', async (req, res) => {
-    res.send(await req.singers.findAll());
+  app.get('/organizations/:orgId/singers', async (req, res) => {
+    if (!await req.organizations.exists(req.params.orgId)) {
+      res.status(404).send({ error: 'Organization not found' });
+      return;
+    }
+
+    res.send(await req.singers.findAll(req.params.orgId));
   });
 
-  app.post('/singers', async (req, res) => {
+  app.post('/organizations/:orgId/singers', async (req, res) => {
     let newSingerId;
+
+    req.body.orgId = req.params.orgId;
 
     try {
       newSingerId = await req.singers.insert(req.body);
