@@ -1,6 +1,6 @@
 module.exports = function organizationsController(app) {
   app.get('/organizations', async (req, res) => {
-    res.send(await req.organizations.findAll(req.authentication.email));
+    res.status(200).send(await req.organizations.findAll(req.authentication.email));
   });
 
   app.post('/organizations', async (req, res) => {
