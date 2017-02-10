@@ -46,25 +46,25 @@ module.exports = function usersController(app) {
     let user = await req.users.find(userId);
 
     if (user.email != req.authentication.email) {
-      res.status(403).send({ error: 'You can only change the password of your account' });
+      res.status(403).send({ message: 'You can only change the password of your account' });
       return;
     }
 
     let { oldPassword, newPassword } = req.body;
 
     if (oldPassword == null || newPassword == null) {
-      res.status(400).send({ error: 'Invalid json received.  Expected: { oldPassword, newPassword }' });
+      res.status(400).send({ message: 'Invalid json received.  Expected: { oldPassword, newPassword }' });
     }
 
     if (!await req.users.checkPassword(req.authentication.email, oldPassword)) {
-      res.status(400).send({ error: 'The old password provided is not correct.' });
+      res.status(401).send({ message: 'The old password provided is not correct.' });
       return;
     }
 
     try {
       await req.users.changePassword(userId, newPassword);
     } catch (e) {
-      res.status(500).send({ error: e.message || 'Error changing password' });
+      res.status(500).send({ message: e.message || 'Error changing password' });
       return;
     }
 
