@@ -5,6 +5,11 @@ module.exports = function singersController(app) {
       return;
     }
 
+    if (!await req.users.isMemberOf(req.authentication.email, req.params.orgId)) {
+      res.status(403).send({ error: 'You are not authorized to access that organization' });
+      return;
+    }
+
     res.send(await req.singers.findAll(req.params.orgId));
   });
 

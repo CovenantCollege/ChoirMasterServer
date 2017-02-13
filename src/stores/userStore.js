@@ -85,6 +85,17 @@ class UserStore extends Store {
 
     return result[0].userCount >= 1;
   }
+
+  async isMemberOf(userEmail, organizationId) {
+    let result = await this.database.query(`
+      SELECT COUNT(*) AS rowCount
+      FROM OrganizationMap
+        INNER JOIN Users ON Users.userId = OrganizationMap.userId
+       WHERE Users.email = ? AND OrganizationMap.orgId = ?
+    `, [userEmail, organizationId]);
+
+    return result[0].rowCount >= 1;
+  }
 }
 
 module.exports = UserStore;
