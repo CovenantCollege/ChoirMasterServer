@@ -41,6 +41,10 @@ class Database {
     });
   }
 
+  setStores(stores) {
+    this.stores = stores;
+  }
+
   close() {
     this.connection.end();
   }

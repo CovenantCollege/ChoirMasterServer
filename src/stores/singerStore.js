@@ -29,6 +29,14 @@ class SingerStore extends Store {
     return results[0];
   }
 
+  async findInChoir(choirId) {
+    return await this.database.query(`
+      SELECT Singers.*
+      FROM Singers INNER JOIN ChoirMap ON Singers.singerId = ChoirMap.singerId
+      WHERE ChoirMap.choirId = ?
+    `, [choirId]);
+  }
+
   async findAll(organizationId) {
     return this.database.query('SELECT * from Singers WHERE orgId = ?', [organizationId]);
   }
