@@ -34,7 +34,7 @@ module.exports = function choirsController(app) {
     try {
       newChoirId = await req.choirs.insert(req.body);
     } catch (e) {
-      req.status(400).send({error: e.message | 'Error creating choir'});
+      req.status(400).send({ error: e.message | 'Error creating choir' });
       return;
     }
 

@@ -16,7 +16,7 @@ module.exports = function usersController(app) {
 
       await req.users.create(userData);
       await sendInvitationEmail(userData.email, userData.password);
-    } catch(e) {
+    } catch (e) {
       res.status(400).send({ error: e.message || 'Error creating user' });
       return;
     }
@@ -42,7 +42,7 @@ module.exports = function usersController(app) {
 
   // Used to change a user's password
   app.put('/users/:id/password', async (req, res) => {
-    let userId = req.params.id
+    let userId = req.params.id;
     let user = await req.users.find(userId);
 
     if (user.email != req.authentication.email) {

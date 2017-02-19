@@ -47,7 +47,7 @@ module.exports = {
         "arrow-spacing": ["warn"],
         "no-var": ["warn"],
 
-        "complexity": ["warn", { "max": 6 }],
+        "complexity": ["warn", { "max": 7 }],
         "max-statements": ["warn", { "max": 30 }]
     }
 };
