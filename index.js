@@ -26,6 +26,7 @@ app.use(storesMiddleware);
 
 require('./src/controllers/sqlDemo.js')(app);
 require('./src/controllers/sessions.js')(app);
+require('./src/controllers/dummyChoir.js')(app);
 
 app.use(authenticationMiddleware);
 
