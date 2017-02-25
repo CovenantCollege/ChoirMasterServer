@@ -13,7 +13,7 @@ async function validateOrganizationParameters(req, res) {
 }
 
 module.exports = function choirsController(app) {
-  app.get('/organizations/{orgId}/choirs', async (req, res) => {
+  app.get('/organizations/:orgId/choirs', async (req, res) => {
     if (!await validateOrganizationParameters(req, res)) {
       return;
     }
@@ -22,7 +22,7 @@ module.exports = function choirsController(app) {
     res.status(200).send(choirs);
   });
 
-  app.post('/organizations/{orgId}/choirs', async (req, res) => {
+  app.post('/organizations/:orgId/choirs', async (req, res) => {
     if (!await validateOrganizationParameters(req, res)) {
       return;
     }
@@ -34,14 +34,14 @@ module.exports = function choirsController(app) {
     try {
       newChoirId = await req.choirs.insert(req.body);
     } catch (e) {
-      req.status(400).send({ error: e.message | 'Error creating choir' });
+      res.status(400).send({ error: e.message | 'Error creating choir' });
       return;
     }
 
     res.status(201).send(await req.choirs.find(newChoirId));
   });
 
-  app.get('/organizations/{orgId}/choirs/{choirId}/singers', async (req, res) => {
+  app.get('/organizations/:orgId/choirs/:choirId/singers', async (req, res) => {
     if (!await validateOrganizationParameters(req, res)) {
       return;
     }
@@ -49,7 +49,7 @@ module.exports = function choirsController(app) {
     res.status(200).send(await req.singers.findInChoir(req.params.choirId));
   });
 
-  app.put('/organizations/{orgId}/choirs/{choirId}/singers/{singerId}', async (req, res) => {
+  app.put('/organizations/:orgId/choirs/:choirId/singers/:singerId', async (req, res) => {
     if (!await validateOrganizationParameters(req, res)) {
       return;
     }
@@ -58,7 +58,7 @@ module.exports = function choirsController(app) {
     res.status(204).send({});
   });
 
-  app.delete('/organizations/{orgId}/choirs/{choirId}/singers', async (req, res) => {
+  app.delete('/organizations/:orgId/choirs/:choirId/singers', async (req, res) => {
     if (!await validateOrganizationParameters(req, res)) {
       return;
     }

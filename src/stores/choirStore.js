@@ -24,7 +24,7 @@ class ChoirStore extends Store {
   async insert(choirData) {
     validateChoir(choirData);
 
-    let result = await this.database.query('INSERT INTO Choirs (name) VALUES (?)', [choirData.name]);
+    let result = await this.database.query('INSERT INTO Choirs (name, orgId) VALUES (?, ?)', [choirData.name, choirData.orgId]);
     return result.insertId;
   }
 
