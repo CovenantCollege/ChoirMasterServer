@@ -31,6 +31,7 @@ app.use(authenticationMiddleware);
 
 require('./src/controllers/users.js')(app);
 require('./src/controllers/singers.js')(app);
+require('./src/controllers/choirs.js')(app);
 require('./src/controllers/organizations.js')(app);
 
 app.use(databaseMiddleware.close);
