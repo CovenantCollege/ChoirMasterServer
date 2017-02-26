@@ -4,7 +4,7 @@ let sendInvitationEmail = require('../modules/invitationEmailSender');
 module.exports = function usersController(app) {
   app.post('/users', async (req, res) => {
     if (await req.users.exists(req.body.email)) {
-      res.status(403).send({ error: 'There is already a user with that email address' });
+      res.status(403).send({ message: 'There is already a user with that email address' });
       return;
     }
 
@@ -17,7 +17,7 @@ module.exports = function usersController(app) {
       await req.users.create(userData);
       await sendInvitationEmail(userData.email, userData.password);
     } catch (e) {
-      res.status(400).send({ error: e.message || 'Error creating user' });
+      res.status(400).send({ message: e.message || 'Error creating user' });
       return;
     }
 
@@ -33,7 +33,7 @@ module.exports = function usersController(app) {
   //   try {
   //     await req.users.update(req.params.id, req.body);
   //   } catch (e) {
-  //     res.status(400).send({ error: e.message || 'Error creating user' });
+  //     res.status(400).send({ message: e.message || 'Error creating user' });
   //     return;
   //   }
   //
@@ -46,25 +46,25 @@ module.exports = function usersController(app) {
     let user = await req.users.findByEmail(email);
 
     // if (user.email != req.authentication.email) {
-    //   res.status(403).send({ error: 'You can only change the password of your account' });
+    //   res.status(403).send({ message: 'You can only change the password of your account' });
     //   return;
     // }
 
     let { oldPassword, newPassword } = req.body;
 
     if (oldPassword == null || newPassword == null) {
-      res.status(400).send({ error: 'Invalid json received.  Expected: { oldPassword, newPassword }' });
+      res.status(400).send({ message: 'Invalid json received.  Expected: { oldPassword, newPassword }' });
     }
 
     if (!await req.users.checkPassword(req.authentication.email, oldPassword)) {
-      res.status(401).send({ error: 'The old password provided is not correct.' });
+      res.status(401).send({ message: 'The old password provided is not correct.' });
       return;
     }
 
     try {
       await req.users.changePassword(user.userId, newPassword);
     } catch (e) {
-      res.status(500).send({ error: e.message || 'Error changing password' });
+      res.status(500).send({ message: e.message || 'Error changing password' });
       return;
     }
 
