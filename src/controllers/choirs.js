@@ -18,7 +18,7 @@ module.exports = function choirsController(app) {
       return;
     }
 
-    let choirs = await req.choirs.findAll(req.params.organizationId);
+    let choirs = await req.choirs.findAll(req.params.orgId);
     res.status(200).send(choirs);
   });
 
