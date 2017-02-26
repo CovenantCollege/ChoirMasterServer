@@ -41,14 +41,14 @@ module.exports = function usersController(app) {
   // });
 
   // Used to change a user's password
-  app.put('/users/:id/password', async (req, res) => {
-    let userId = req.params.id;
-    let user = await req.users.find(userId);
+  app.put('/users/password', async (req, res) => {
+    let email = req.authentication.email;
+    let user = await req.users.findByEmail(email);
 
-    if (user.email != req.authentication.email) {
-      res.status(403).send({ error: 'You can only change the password of your account' });
-      return;
-    }
+    // if (user.email != req.authentication.email) {
+    //   res.status(403).send({ error: 'You can only change the password of your account' });
+    //   return;
+    // }
 
     let { oldPassword, newPassword } = req.body;
 
@@ -62,7 +62,7 @@ module.exports = function usersController(app) {
     }
 
     try {
-      await req.users.changePassword(userId, newPassword);
+      await req.users.changePassword(user.userId, newPassword);
     } catch (e) {
       res.status(500).send({ error: e.message || 'Error changing password' });
       return;
