@@ -21,7 +21,7 @@ if (process.env.NO_STATIC_ROOT) {
 }
 
 app.use(errorHandlingMiddleware);
-app.use(databaseMiddleware.open);
+app.use(databaseMiddleware);
 app.use(storesMiddleware);
 
 require('./src/controllers/sqlDemo.js')(app);
@@ -34,6 +34,6 @@ require('./src/controllers/singers.js')(app);
 require('./src/controllers/choirs.js')(app);
 require('./src/controllers/organizations.js')(app);
 
-app.use(databaseMiddleware.close);
+
 
 app.listen(configuration.server.port, () => console.log('API server listening on port 4567'));
