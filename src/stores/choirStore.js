@@ -28,8 +28,8 @@ class ChoirStore extends Store {
     return result.insertId;
   }
 
-  async addSinger(choirId, singerId) {
-    if (await this.database.stores.singers.find(singerId) == null) {
+  async addSinger(choirId, singerId, validateExistance=true) {
+    if (validateExistance && await this.database.stores.singers.find(singerId) == null) {
       throw new Error('Singer not found');
     }
 
@@ -38,6 +38,23 @@ class ChoirStore extends Store {
 
   async removeSinger(choirId, singerId) {
     await this.database.query('DELETE FROM ChoirMap WHERE choirId = ? AND singerId = ?', [choirId, singerId]);
+  }
+
+  async getSingerIds(choirId) {
+    let results = await this.database.query('SELECT singerId FROM ChoirMap WHERE choirId = ?', [choirId]);
+    return results.map(result => result.singerId);
+  }
+
+  async updateSingers(choirId, singerIds) {
+    let currentSingerIds = await this.getSingerIds(choirId);
+
+    for (let singerIdToAdd of singerIds.filter(id => !currentSingerIds.includes(id))) {
+      await this.addSinger(choirId, singerIdToAdd, false);
+    }
+
+    for (let singerIdToRemove of currentSingerIds.filter(id => !singerIds.includes(id))) {
+      await this.removeSinger(choirId, singerIdToRemove);
+    }
   }
 }
 

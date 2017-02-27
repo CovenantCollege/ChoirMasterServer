@@ -49,6 +49,25 @@ module.exports = function choirsController(app) {
     res.status(200).send(await req.singers.findInChoir(req.params.choirId));
   });
 
+  app.put('/organizations/:orgId/choirs/:choirId/singers', async (req, res) => {
+    if (!await validateOrganizationParameters(req, res)) {
+      return;
+    }
+
+    let singerIdsInOrganization = (await req.singers.findAll(req.params.orgId)).map(singer => singer.singerId);
+
+    for (let singerId of req.body.singerIds) {
+      if (!singerIdsInOrganization.includes(singerId)) {
+        res.status(400).send({ message: "Singer doesn't belong to that organization" });
+        return;
+      }
+    }
+
+    await req.choirs.updateSingers(req.params.choirId, req.body.singerIds);
+
+    res.status(204).send({});
+  });
+
   app.put('/organizations/:orgId/choirs/:choirId/singers/:singerId', async (req, res) => {
     if (!await validateOrganizationParameters(req, res)) {
       return;
