@@ -48,13 +48,20 @@ class SingerStore extends Store {
     return result.insertId;
   }
 
+  async remove(singerId) {
+    await this.database.query('DELETE FROM ChoirMap WHERE singerId = ?', [singerId]);
+    await this.database.query('DELETE FROM Singers WHERE singerId = ?', [singerId]);
+  }
+
   async update(singerId, singerData) {
     validateSinger(singerData);
     await this.database.query('UPDATE Singers SET name = ?, height = ? WHERE orgId = ?', [singerData.name, singerData.height, singerId]);
   }
 
-  async remove(singerId) {
-    await this.database.query('DELETE FROM Singers WHERE orgId = ?', [singerId]);
+  async belongsTo(singerId, organizationId) {
+    let result = await this.database.query('SELECT orgId FROM Singers WHERE singerId = ?', [singerId]);
+
+    return result.length > 0 && result[0].orgId == organizationId;
   }
 }
 
