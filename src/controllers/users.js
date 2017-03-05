@@ -45,10 +45,10 @@ module.exports = function usersController(app) {
     let email = req.authentication.email;
     let user = await req.users.findByEmail(email);
 
-    // if (user.email != req.authentication.email) {
-    //   res.status(403).send({ message: 'You can only change the password of your account' });
-    //   return;
-    // }
+    if (user.email != req.authentication.email) {
+      res.status(403).send({ message: 'You can only change the password of your account' });
+      return;
+    }
 
     let { oldPassword, newPassword } = req.body;
 
