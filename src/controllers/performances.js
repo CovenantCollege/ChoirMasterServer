@@ -30,6 +30,22 @@ async function validateVenueParameters(req, res) {
   return true;
 }
 
+async function validatePerformanceParameters(req, res) {
+  try {
+    await req.performances.find(req.params.performanceId);
+  } catch (e) {
+    res.status(404).send({ error: 'Performance not found' });
+    return false;
+  }
+
+  if (req.params.orgId != (await req.performances.getOrganizationId(req.params.performanceId))) {
+    res.status(400).send({ error: 'Performance does not belong to that organization' });
+    return false;
+  }
+
+  return true;
+}
+
 module.exports = function performancesController(app) {
   app.get('/organizations/:orgId/performances', async (req, res) => {
     if (!await validateOrganizationParameters(req, res)) {
@@ -65,7 +81,52 @@ module.exports = function performancesController(app) {
       return;
     }
 
+    if (!await validatePerformanceParameters(req, res)) {
+      return;
+    }
+
     await req.performances.remove(req.params.performanceId);
+    res.status(204).send({});
+  });
+
+  app.get('/organizations/:orgId/performances/:performanceId/choirs', async (req, res) => {
+    if (!await validateOrganizationParameters(req, res)) {
+      return;
+    }
+
+    if (!await validatePerformanceParameters(req, res)) {
+      return;
+    }
+
+    let choirIds = await req.performances.getChoirIds(req.params.performanceId);
+    res.status(200).send(choirIds);
+  });
+
+  app.put('/organizations/:orgId/performances/:performanceId/choirs', async (req, res) => {
+    if (!await validateOrganizationParameters(req, res)) {
+      return;
+    }
+
+    if (!await validatePerformanceParameters(req, res)) {
+      return;
+    }
+
+    if (!Array.isArray(req.body)) {
+      res.status(404).send({ error: 'Expected request body to be an array of choir IDs' });
+      return;
+    }
+
+    let performanceOrganization = await req.performances.getOrganizationId(req.params.performanceId);
+
+    for (let choirId of req.body) {
+      if (! (await req.choirs.belongsTo(choirId, performanceOrganization))) {
+        res.status(400).send({ error: 'The performance and all choirs must belong to the same organization' });
+        return;
+      }
+    }
+
+    await req.performances.updateChoirs(req.params.performanceId, req.body);
+
     res.status(204).send({});
   });
 };

@@ -56,6 +56,12 @@ class ChoirStore extends Store {
       await this.removeSinger(choirId, singerIdToRemove);
     }
   }
+
+  async belongsTo(choirId, organizationId) {
+    let result = await this.database.query('SELECT orgId FROM Choirs WHERE choirId = ?', [choirId]);
+
+    return result.length > 0 && result[0].orgId == organizationId;
+  }
 }
 
 module.exports = ChoirStore;
