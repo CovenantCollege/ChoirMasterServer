@@ -34,5 +34,6 @@ require('./src/controllers/singers.js')(app);
 require('./src/controllers/choirs.js')(app);
 require('./src/controllers/venues.js')(app);
 require('./src/controllers/organizations.js')(app);
+require('./src/controllers/performances.js')(app);
 
 app.listen(configuration.server.port, () => console.log('API server listening on port 4567'));
