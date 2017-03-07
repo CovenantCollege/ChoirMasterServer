@@ -13,16 +13,16 @@ let storesMiddleware = require('./src/middleware/stores.js');
 let app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(databaseMiddleware);
+app.use(storesMiddleware);
+
+errorHandlingMiddleware.wrapAsyncMethods(app);
 
 if (process.env.NO_STATIC_ROOT) {
   app.use(express.static('client/build'));
 } else {
   app.use('/choirmaster', express.static('client/build'));
 }
-
-app.use(errorHandlingMiddleware);
-app.use(databaseMiddleware);
-app.use(storesMiddleware);
 
 require('./src/controllers/sqlDemo.js')(app);
 require('./src/controllers/sessions.js')(app);
@@ -35,5 +35,7 @@ require('./src/controllers/choirs.js')(app);
 require('./src/controllers/venues.js')(app);
 require('./src/controllers/organizations.js')(app);
 require('./src/controllers/performances.js')(app);
+
+app.use(errorHandlingMiddleware.middleware);
 
 app.listen(configuration.server.port, () => console.log('API server listening on port 4567'));
