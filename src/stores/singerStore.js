@@ -1,20 +1,21 @@
+let { ValidationError, NotFoundError } = require('./errors.js');
 let Store = require('./store.js');
 
 function validateSinger(singerData) {
   if (singerData == null || typeof singerData != 'object') {
-    throw new Error('Data for new singer not found');
+    throw new ValidationError('Data for new singer not found');
   }
 
   if (singerData.name == null) {
-    throw new Error('Singers must have a name');
+    throw new ValidationError('Singers must have a name');
   }
 
   if (singerData.height == null) {
-    throw new Error('Singers must hava a height');
+    throw new ValidationError('Singers must hava a height');
   }
 
   if (singerData.orgId == null) {
-    throw new Error('Singers must belong to an organization');
+    throw new ValidationError('Singers must belong to an organization');
   }
 }
 
@@ -23,7 +24,7 @@ class SingerStore extends Store {
     let results = await this.database.query('SELECT * from Singers WHERE singerId = ?', [singerId]);
 
     if (results.length == 0) {
-      throw new Error('Singer not found');
+      throw new NotFoundError('Singer not found');
     }
 
     return results[0];

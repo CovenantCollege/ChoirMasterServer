@@ -1,12 +1,13 @@
+let { ValidationError, NotFoundError } = require('./errors.js');
 let Store = require('./store.js');
 
 function validateOrganization(organizationData) {
   if (organizationData == null || typeof organizationData != 'object') {
-    throw new Error('Data for new organization not found');
+    throw new ValidationError('Data for new organization not found');
   }
 
   if (organizationData.name == null) {
-    throw new Error('Organizations must have a name');
+    throw new ValidationError('Organizations must have a name');
   }
 }
 
@@ -15,7 +16,7 @@ class OrganizationStore extends Store {
     let results = await this.database.query('SELECT * from Organizations WHERE orgId = ?', [orgId]);
 
     if (results.length == 0) {
-      throw new Error('Organization not found');
+      throw new NotFoundError('Organization not found');
     }
 
     return results[0];

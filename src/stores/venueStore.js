@@ -1,8 +1,9 @@
+let { ValidationError, NotFoundError } = require('./errors.js');
 let Store = require('./store.js');
 
 function validateVenue(venueData) {
   if (venueData.name == null) {
-    throw new Error('Venues must have a name');
+    throw new ValidationError('Venues must have a name');
   }
 }
 
@@ -11,7 +12,7 @@ class VenueStore extends Store {
     let results = await this.database.query('SELECT * FROM Venue WHERE venueId = ?', [venueId]);
 
     if (results.length == 0) {
-      throw new Error('Venue not found');
+      throw new NotFoundError('Venue not found');
     }
 
     return results[0];

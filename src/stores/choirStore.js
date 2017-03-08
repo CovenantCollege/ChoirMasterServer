@@ -1,8 +1,9 @@
+let { ValidationError, NotFoundError } = require('./errors.js');
 let Store = require('./store.js');
 
 function validateChoir(choirData) {
   if (choirData.name == null) {
-    throw new Error('Choirs must have a name');
+    throw new ValidationError('Choirs must have a name');
   }
 }
 
@@ -11,7 +12,7 @@ class ChoirStore extends Store {
     let results = await this.database.query('SELECT * FROM Choirs WHERE choirId = ?', [choirId]);
 
     if (results.length == 0) {
-      throw new Error('Choir not found');
+      throw new NotFoundError('Choir not found');
     }
 
     return results[0];
@@ -29,8 +30,9 @@ class ChoirStore extends Store {
   }
 
   async addSinger(choirId, singerId, validateExistance=true) {
-    if (validateExistance && await this.database.stores.singers.find(singerId) == null) {
-      throw new Error('Singer not found');
+    if (validateExistance) {
+      // will throw a NotFoundError if the singer doesn't exist
+      await this.database.stores.singers.find(singerId);
     }
 
     await this.database.query('INSERT INTO ChoirMap (choirId, singerId) VALUES (?, ?)', [choirId, singerId]);

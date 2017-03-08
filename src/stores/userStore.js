@@ -1,4 +1,5 @@
 let bcrypt = require('bcrypt');
+let { ValidationError, NotFoundError } = require('./errors.js');
 let Store = require('./store.js');
 let validator = require('validator');
 
@@ -6,20 +7,20 @@ const BCRYPT_SALT_ROUNDS = 10;
 
 function validateUser(userData, expectPassword = true) {
   if (userData == null || typeof userData != 'object') {
-    throw new Error('Data for new user not found');
+    throw new ValidationError('Data for new user not found');
   }
 
   if (userData.email == null) {
-    throw new Error('Users must have an email');
+    throw new ValidationError('Users must have an email');
   }
 
   if (!validator.isEmail(userData.email)) {
-    throw new Error(userData.email + ' is not a valid email address');
+    throw new ValidationError(userData.email + ' is not a valid email address');
   }
 
   if (expectPassword) {
     if (userData.password == null) {
-      throw new Error('Users must have a password');
+      throw new ValidationError('Users must have a password');
     }
   }
 }
@@ -54,7 +55,7 @@ class UserStore extends Store {
     let results = await this.database.query('SELECT * from Users WHERE userId = ?', [userId]);
 
     if (results.length == 0) {
-      throw new Error('User not found');
+      throw new NotFoundError('User not found');
     }
 
     return results[0];
@@ -64,7 +65,7 @@ class UserStore extends Store {
     let results = await this.database.query('SELECT * from Users WHERE email = ?', [userEmail]);
 
     if (results.length == 0) {
-      throw new Error('User not found');
+      throw new NotFoundError('User not found');
     }
 
     return results[0];

@@ -1,12 +1,13 @@
+let { ValidationError, NotFoundError } = require('./errors.js');
 let Store = require('./store.js');
 
 function validatePerformance(performanceData) {
   if (performanceData.description == null) {
-    throw new Error('Performance must have a description');
+    throw new ValidationError('Performance must have a description');
   }
 
   if (performanceData.date == null) {
-    throw new Error('Performance must occur on a date');
+    throw new ValidationError('Performance must occur on a date');
   }
 }
 
@@ -15,7 +16,7 @@ class PerformanceStore extends Store {
     let results = await this.database.query('SELECT * FROM Performance WHERE performanceId = ?', [performanceId]);
 
     if (results.length == 0) {
-      throw new Error('Performance not found');
+      throw new NotFoundError('Performance not found');
     }
 
     return results[0];
