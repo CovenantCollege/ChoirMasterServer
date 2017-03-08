@@ -1,4 +1,4 @@
-let HttpResponseError = require('../HttpResponseError.js');
+let HttpResponseError = require('../httpResponseError.js');
 
 module.exports = function choirsController(app) {
   app.get('/organizations/:orgId/choirs', async (req, res) => {
