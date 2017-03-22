@@ -48,7 +48,9 @@ class UserStore extends Store {
     validateUser(userData);
 
     let hashedPassword = await bcrypt.hash(userData.password, BCRYPT_SALT_ROUNDS);
-    await this.database.query('INSERT INTO Users (username, email, password) VALUES ("", ?, ?)', [userData.email, hashedPassword]);
+    let result = await this.database.query('INSERT INTO Users (username, email, password) VALUES ("", ?, ?)', [userData.email, hashedPassword]);
+
+    return result.insertId;
   }
 
   async find(userId) {

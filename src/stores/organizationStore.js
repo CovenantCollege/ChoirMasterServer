@@ -48,6 +48,10 @@ class OrganizationStore extends Store {
     await this.database.query('UPDATE Organizations SET name = ? WHERE orgId = ?', [organizationData.name, orgId]);
   }
 
+  async addMember(orgId, userId) {
+    await this.database.query('INSERT INTO OrganizationMap (orgId, userId) VALUES (?, ?)', [orgId, userId]);
+  }
+
   async remove(orgId) {
     await this.database.query('DELETE FROM Organizations WHERE orgId = ?', [orgId]);
   }

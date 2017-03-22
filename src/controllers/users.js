@@ -14,7 +14,14 @@ module.exports = function usersController(app) {
       password: passwordGenerator.generate({ length: 7, numbers: true })
     };
 
-    await req.users.create(userData);
+    let userId = await req.users.create(userData);
+
+    let orgId = req.body.orgId;
+    if (!await req.users.isMemberOf(req.authentication.email, orgId)) {
+      throw new HttpResponseError('FORBIDDEN', 'You are not authorized to invite users to that organization');
+    }
+
+    await req.organizations.addMember(req.body.orgId, userId);
     await sendInvitationEmail(userData.email, userData.password);
 
     res.status(201).send({
