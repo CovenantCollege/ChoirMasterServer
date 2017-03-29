@@ -59,6 +59,7 @@ require('./src/controllers/choirs.js')(app);
 require('./src/controllers/venues.js')(app);
 require('./src/controllers/organizations.js')(app);
 require('./src/controllers/performances.js')(app);
+require('./src/controllers/grid.js')(app);
 
 app.use(errorHandlingMiddleware);
 

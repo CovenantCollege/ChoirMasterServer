@@ -4,6 +4,7 @@ let UserStore = require('../stores/userStore.js');
 let ChoirStore = require('../stores/choirStore.js');
 let VenueStore = require('../stores/venueStore.js');
 let PerformanceStore = require('../stores/performanceStore.js');
+let GridStore = require('../stores/gridStore.js');
 
 module.exports = function storesMiddleware(request, response, next) {
   let stores = {
@@ -12,7 +13,8 @@ module.exports = function storesMiddleware(request, response, next) {
     users: new UserStore(request.db),
     choirs: new ChoirStore(request.db),
     venues: new VenueStore(request.db),
-    performances: new PerformanceStore(request.db)
+    performances: new PerformanceStore(request.db),
+    grid: new GridStore(request.db)
   };
 
   Object.assign(request, stores);
