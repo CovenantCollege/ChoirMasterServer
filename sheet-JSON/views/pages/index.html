@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>This is a test.</h2>
+            <p>Upload a spreadsheet to send it as JSON</p>
+        </div>
+    </section>
+
+    <main>
+        <div class="container">
+            <form action="/" method="post" enctype="multipart/form-data"> <!--enctype="multipart/form-data"-->
+                <label for="sheet"> File input: <br />
+                    <input type="file" name="sheet" id="sheet" required>
+                    <br />
+                    <p>File must have [ .xlsx | .xls | .xml | .ods ] extension.</p>
+                    <input type="submit" name="Submit" value="Upload Spreadsheet">
+                </label>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        Hopefully this will work as intended...
+        Copyright &copy; 2017
+    </footer>
+</body>
+</html>
