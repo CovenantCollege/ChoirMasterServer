@@ -22,7 +22,6 @@ and converts it into readable JSON.
   * Spreadsheet contents should be displayed in bash after upload
 
 #### Notice
-* Make sure to delete all files in `uploads` directory after use
 * Currently does not store values into db
 * Currently does not handle errors elegantly
 
@@ -31,4 +30,3 @@ and converts it into readable JSON.
 * Change convention to: choir equivalent to sheet; and organization to workbook \(file\)
 * Integrate with Choirmaster project
 * Handle errors elegantly
-* Automatically clean uploads/ directory after use

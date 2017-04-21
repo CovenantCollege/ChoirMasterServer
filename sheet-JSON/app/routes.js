@@ -72,6 +72,9 @@ router.post('/', type, function(req, res) {
             var time = date.toLocaleTimeString();
             console.log('Sent:',day,'@',time,'\n');
 
+            fs.unlinkSync(target_path);
+            fs.unlinkSync(req.file.path);
+
             res.sendFile(path.join(__dirname,'../views/pages/thankyou.html'));
         });
 
