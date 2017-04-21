@@ -1,28 +1,34 @@
-# ChoirMaster Server
-
-[![Build Status](https://travis-ci.org/CovenantCollege/ChoirMasterServer.svg?branch=master)](https://travis-ci.org/CovenantCollege/ChoirMasterServer)
-[![Code Climate](https://codeclimate.com/github/CovenantCollege/ChoirMasterServer/badges/gpa.svg)](https://codeclimate.com/github/CovenantCollege/ChoirMasterServer)
+# sheet-JSON
 
 ## Overview
 
-This is the server repository for Choir Master, a project started by Covenant College to help choir directors arrange their singers.
+This is a proof of concept that accepts a spreadsheet file
+and converts it into readable JSON.
 
-## Getting Started
-1. Install [Node.js](https://nodejs.org/en/) v7.4.0 and clone this git repository
-2. Open git bash in the cloned directory and run `npm run setup`
-3. Install mysql and run migrations/demo.sql
-4. To enable creating users, edit configuration.js and enter your gmail credentials.  You might have to configure your gmail account to [allow less secure apps](https://www.google.com/settings/security/lesssecureapps) and complete the [captcha challenge](https://accounts.google.com/b/0/displayunlockcaptcha)
+### Spreadsheet requirements
+* File must have extension: `.ods | .xml | .xls | .xlsx`
+* Choir name will be based off of the sheet name
+* File name and sheet name should be the same
+* Row 1 contains singer attribute labels
+* Following rows contain singer specific attributes, correlating to row 1
 
-Once the installation is done, you can run some commands inside the project folder:
+### Running the app
+1. Install [Node.js](https://nodejs.org/en/) \(or `sudo pip3 install node`\) latest version
+2. Open sheet-JSON directory in bash
+3. Run `node sheet-json.js`
+4. Open browser [sheet-JSON](http://localhost:8675/)
+5. Upload spreadsheet
+  * Make sure spreadsheet has an accepted extension
+  * Spreadsheet contents should be displayed in bash after upload
 
-### `npm start`
+#### Notice
+* Make sure to delete all files in `uploads` directory after use
+* Currently does not store values into db
+* Currently does not handle errors elegantly
 
-Runs the server.  In order to use the server you'll need to build and run the client as well.  See [ChoirMasterClient](https://github.com/CovenantCollege/ChoirMasterClient) for more details.<br>
-
-### `npm test`
-
-Runs the complete suite of tests that have been written for the server.  We strongly encourage you to write tests for every new feature you write.
-
-### `npm run client:update`
-
-Downloads and compiles the latest client version
+#### Planned changes
+* Make downloadable default template
+* Change convention to: choir equivalent to sheet; and organization to workbook \(file\)
+* Integrate with Choirmaster project
+* Handle errors elegantly
+* Automatically clean uploads/ directory after use
