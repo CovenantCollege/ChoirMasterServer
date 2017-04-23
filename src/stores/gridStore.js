@@ -92,14 +92,14 @@ class GridStore extends Store {
 
     for (let oldSingerId of singersInOldGrid) {
       if (singersInNewGrid.includes(oldSingerId)) {
-        singersToUpdate.add(oldSingerId);
+        singersToUpdate.push(oldSingerId);
       } else {
-        singersToRemove.add(oldSingerId);
+        singersToRemove.push(oldSingerId);
       }
     }
 
     for (let singerIdToAdd of singersToAdd) {
-      let singer = singersInNewGrid.find(s => s.id == singerIdToAdd);
+      let singer = newGrid.find(s => s.singerId == singerIdToAdd);
       await this.addSinger(performanceId, singerIdToAdd, singer.x, singer.y);
     }
 
@@ -129,7 +129,7 @@ class GridStore extends Store {
 
   async addSinger(performanceId, singerId, x, y) {
     await this.database.query(
-      'INSERT INTO Grid (singerId, performanceId, x, y) VALUES (?, ?, ?, ?)',
+      'INSERT INTO Grid (singerId, performanceId, x, y, attendance) VALUES (?, ?, ?, ?, 0)',
       [singerId, performanceId, x, y]
     );
   }
