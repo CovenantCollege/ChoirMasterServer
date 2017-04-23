@@ -61,7 +61,7 @@ class SingerStore extends Store {
   async insert(singerData) {
     validateSinger(singerData);
 
-    let result = await this.database.query('INSERT INTO Singers (name, height, voice, orgId) VALUES (?, ?, ?, ?)', [singerData.name, singerData.height, singerData.voice, singerData.orgId]);
+    let result = await this.database.query('INSERT INTO Singers (name, height, voice, orgId, notes, picturePath) VALUES (?, ?, ?, ?, \'\', \'\')', [singerData.name, singerData.height, singerData.voice, singerData.orgId]);
     return result.insertId;
   }
 

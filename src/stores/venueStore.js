@@ -41,7 +41,11 @@ class VenueStore extends Store {
   async insert(venueData) {
     validateVenue(venueData);
 
-    let result = await this.database.query('INSERT INTO Venue (name, orgId) VALUES (?, ?)', [venueData.name, venueData.orgId]);
+    let result = await this.database.query(
+      'INSERT INTO Venue (name, orgId, description, width, height) VALUES (?, ?, \'\', 0, 0)',
+      [venueData.name, venueData.orgId]
+    );
+
     return result.insertId;
   }
 }

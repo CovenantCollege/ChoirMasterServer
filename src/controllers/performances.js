@@ -26,6 +26,13 @@ module.exports = function performancesController(app) {
     res.status(201).send(await req.performances.find(newPerformanceId));
   });
 
+  app.put('/organizations/:orgId/performances/:performanceId', async (req, res) => {
+    await req.performances.update(req.params.performanceId, req.body);
+
+    let updatedPerformance = await req.performances.find(req.params.performanceId);
+    res.status(200).send(updatedPerformance);
+  });
+
   app.delete('/organizations/:orgId/performances/:performanceId', async (req, res) => {
     await req.performances.remove(req.params.performanceId);
     res.status(204).send({});

@@ -25,6 +25,14 @@ function validatePerformance(performanceData) {
   if (performanceData.date == null) {
     throw new ValidationError('Performance must occur on a date');
   }
+
+  if (!Number.isInteger(performanceData.width)) {
+    throw new ValidationError('Performance must have a numerical width');
+  }
+
+  if (!Number.isInteger(performanceData.height)) {
+    throw new ValidationError('Performance must have a numerical height');
+  }
 }
 
 class PerformanceStore extends Store {
@@ -50,9 +58,20 @@ class PerformanceStore extends Store {
     validatePerformance(performanceData);
 
     let result = await this.database.query(`
-      INSERT INTO Performance (date, description, venueId) VALUES (?, ?, ?)
-    `, [performanceData.date, performanceData.description, venueId]);
+      INSERT INTO Performance (date, description, width, height, venueId) VALUES (?, ?, ?, ?, ?)
+    `, [performanceData.date, performanceData.description, performanceData.width, performanceData.height, venueId]);
     return result.insertId;
+  }
+
+  async update(performanceId, performanceData) {
+    validatePerformance(performanceData);
+
+    let formattedDate = new Date(performanceData.date).toISOString().substring(0, 10);
+
+    await this.database.query(
+      'UPDATE Performance SET date = ?, description = ?, width = ?, height = ?',
+      [formattedDate, performanceData.description, performanceData.width, performanceData.height]
+    );
   }
 
   async addChoir(performanceId, choirId) {
