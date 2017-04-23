@@ -108,7 +108,7 @@ class GridStore extends Store {
     }
 
     for (let singerIdToUpdate of singersToUpdate) {
-      let newSinger = newGrid.find(s => s.id == singerIdToUpdate);
+      let newSinger = newGrid.find(s => s.singerId == singerIdToUpdate);
       await this.updateSinger(performanceId, singerIdToUpdate, newSinger.x, newSinger.y);
     }
   }
@@ -136,7 +136,7 @@ class GridStore extends Store {
 
   async updateSinger(performanceId, singerId, x, y) {
     await this.database.query(
-      'UPDATE Grid (x, y) SET x = ?, y = ? WHERE performanceId = ? AND singerId = ?',
+      'UPDATE Grid SET x = ?, y = ? WHERE performanceId = ? AND singerId = ?',
       [x, y, performanceId, singerId]
     );
   }
