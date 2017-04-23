@@ -108,7 +108,7 @@ class GridStore extends Store {
     }
 
     for (let singerIdToUpdate of singersToUpdate) {
-      let newSinger = singersInNewGrid.find(s => s.id == singerIdToUpdate);
+      let newSinger = newGrid.find(s => s.id == singerIdToUpdate);
       await this.updateSinger(performanceId, singerIdToUpdate, newSinger.x, newSinger.y);
     }
   }
