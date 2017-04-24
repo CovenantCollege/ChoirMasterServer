@@ -17,6 +17,10 @@ class ChoirStore extends Store {
 
     return results[0];
   }
+  async isInPerformance(choirId) {
+    let results = await this.database.query('SELECT COUNT(*) as NumPer FROM ChoirXPerformance Where choirId = ?', [choirId]);
+    return results[0].NumPer>0;
+  }
 
   async findAll(organizationId) {
     return this.database.query('SELECT * FROM Choirs WHERE orgId = ?', [organizationId]);
@@ -42,6 +46,11 @@ class ChoirStore extends Store {
     await this.database.query('DELETE FROM ChoirMap WHERE choirId = ? AND singerId = ?', [choirId, singerId]);
   }
 
+  async remove(choirID) {
+    await this.database.query('DELETE FROM ChoirMap WHERE choirId = ?', [choirID]);
+    await this.database.query('DELETE FROM ChoirXPerformance WHERE choirId = ?', [choirID]);
+    await this.database.query('DELETE FROM Choirs WHERE choirID = ?', [choirID]);
+  }
   async getSingerIds(choirId) {
     let results = await this.database.query('SELECT singerId FROM ChoirMap WHERE choirId = ?', [choirId]);
     return results.map(result => result.singerId);

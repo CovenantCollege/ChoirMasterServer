@@ -53,6 +53,16 @@ class OrganizationStore extends Store {
   }
 
   async remove(orgId) {
+    for(let venue of await this.database.stores.venues.findAll(orgId)){
+      await this.database.stores.venues.remove(venue.venueId);
+    }
+    for(let singer of await this.database.stores.singers.findAll(orgId)){
+      await this.database.stores.singers.remove(singer.singerId);
+    }
+    for(let choir of await this.database.stores.choirs.findAll(orgId)){
+      await this.database.stores.choirs.remove(choir.choirId);
+    }
+    await this.database.query('DELETE FROM OrganizationMap WHERE orgId = ?', [orgId]);
     await this.database.query('DELETE FROM Organizations WHERE orgId = ?', [orgId]);
   }
 

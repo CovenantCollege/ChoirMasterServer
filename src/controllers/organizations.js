@@ -9,4 +9,9 @@ module.exports = function organizationsController(app) {
 
     res.status(201).send(await req.organizations.find(newOrganizationId));
   });
+
+  app.delete('/organizations/:orgId', async (req, res) =>{
+    await req.organizations.remove(req.params.orgId);
+    res.status(201).send({});
+  });
 };
