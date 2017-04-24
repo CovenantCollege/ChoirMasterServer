@@ -75,8 +75,6 @@ class PerformanceStore extends Store {
   }
 
   async updateSize(performanceId, performanceData) {
-    validatePerformance(performanceData);
-
     await this.database.query(
       'UPDATE Performance SET width = ?, height = ?',
       [performanceData.width, performanceData.height]
