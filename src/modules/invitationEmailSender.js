@@ -18,10 +18,7 @@ let nodemailer = require('nodemailer');
 let configuration = require('../../configuration.js');
 
 function sendInvitationEmail(emailAddress, generatedPassword) {
-  let transporter = nodemailer.createTransport({
-    service: configuration.email.transporter,
-    auth: configuration.email.auth
-  });
+  let transporter = nodemailer.createTransport(configuration.email);
 
   let mailOptions = {
     from: 'choirmaster@covenant.edu',

@@ -17,7 +17,7 @@ module.exports = {
   },
 
   'email': {
-    'transporter': 'gmail',
+    'service': 'gmail',
     'auth': {
       'user': 'yourgmailusername',
       'pass': 'yourgmailpassword'
