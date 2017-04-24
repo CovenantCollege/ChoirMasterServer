@@ -1,3 +1,19 @@
+/*
+Copyright 2017 David Reed, Joshua Humpherys, and Spencer Dent.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 let { ValidationError, NotFoundError } = require('./errors.js');
 let Store = require('./store.js');
 
@@ -8,6 +24,14 @@ function validatePerformance(performanceData) {
 
   if (performanceData.date == null) {
     throw new ValidationError('Performance must occur on a date');
+  }
+
+  if (!Number.isInteger(performanceData.width)) {
+    throw new ValidationError('Performance must have a numerical width');
+  }
+
+  if (!Number.isInteger(performanceData.height)) {
+    throw new ValidationError('Performance must have a numerical height');
   }
 }
 
@@ -34,9 +58,27 @@ class PerformanceStore extends Store {
     validatePerformance(performanceData);
 
     let result = await this.database.query(`
-      INSERT INTO Performance (date, description, venueId) VALUES (?, ?, ?)
-    `, [performanceData.date, performanceData.description, venueId]);
+      INSERT INTO Performance (date, description, width, height, venueId) VALUES (?, ?, ?, ?, ?)
+    `, [performanceData.date, performanceData.description, performanceData.width, performanceData.height, venueId]);
     return result.insertId;
+  }
+
+  async update(performanceId, performanceData) {
+    validatePerformance(performanceData);
+
+    let formattedDate = new Date(performanceData.date).toISOString().substring(0, 10);
+
+    await this.database.query(
+      'UPDATE Performance SET date = ?, description = ?, width = ?, height = ?',
+      [formattedDate, performanceData.description, performanceData.width, performanceData.height]
+    );
+  }
+
+  async updateSize(performanceId, performanceData) {
+    await this.database.query(
+      'UPDATE Performance SET width = ?, height = ?',
+      [performanceData.width, performanceData.height]
+    );
   }
 
   async addChoir(performanceId, choirId) {

@@ -1,0 +1,19 @@
+{
+  "name": "sheet-json",
+  "version": "1.0.0",
+  "description": "upload spreadsheet; spreadsheet => json; json -> db",
+  "main": "sheet-to-json.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Spencer Dent",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "multer": "^1.3.0",
+    "nodemon": "^1.11.0",
+    "xlsx": "^0.9.11"
+  },
+  "devDependencies": {}
+}
