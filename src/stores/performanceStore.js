@@ -74,6 +74,15 @@ class PerformanceStore extends Store {
     );
   }
 
+  async updateSize(performanceId, performanceData) {
+    validatePerformance(performanceData);
+
+    await this.database.query(
+      'UPDATE Performance SET width = ?, height = ?',
+      [performanceData.width, performanceData.height]
+    );
+  }
+
   async addChoir(performanceId, choirId) {
     await this.database.query('INSERT INTO ChoirXPerformance (choirId, performanceId) VALUES (?, ?)', [choirId, performanceId]);
   }
