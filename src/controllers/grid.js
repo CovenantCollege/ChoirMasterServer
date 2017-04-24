@@ -36,4 +36,9 @@ module.exports = function gridController(app) {
 
     res.status(204).send({});
   });
+
+  app.get('/organizations/:orgId/performances/:performanceId/grid/singers/algorithm', async (req, res) => {
+    let grid = await req.grid.arrangeSingers(req.params.orgId, req.params.performanceId);
+    res.status(200).send(grid);
+  });
 };

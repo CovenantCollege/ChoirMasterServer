@@ -16,6 +16,7 @@ limitations under the License.
 
 let { ValidationError/*, NotFoundError*/ } = require('./errors.js');
 let Store = require('./store.js');
+let algorithm = require('../modules/algorithm');
 
 function validateGrid(grid) {
   if (!Array.isArray(grid)) {
@@ -64,12 +65,12 @@ class GridStore extends Store {
     });
 
     for (let { x, y } of spotsToDisable) {
-      console.log("Disabling " + x + ", " + y);
+    //   console.log("Disabling " + x + ", " + y);
       await this.disableSpot(performanceId, x, y);
     }
 
     for (let { x, y } of spotsToEnable) {
-      console.log("Enabling " + x + ", " + y);
+    //   console.log("Enabling " + x + ", " + y);
       await this.enableSpot(performanceId, x, y);
     }
   }
@@ -111,6 +112,25 @@ class GridStore extends Store {
       let newSinger = newGrid.find(s => s.singerId == singerIdToUpdate);
       await this.updateSinger(performanceId, singerIdToUpdate, newSinger.x, newSinger.y);
     }
+  }
+
+  async arrangeSingers(orgId, performanceId) {
+    const singersInOrganization = await this.database.query('SELECT * FROM Singers WHERE orgId = ?', [orgId]);
+    const singers = (await this.findSingers(performanceId)).map(singer => {
+      const singerData = singersInOrganization.find(s => s.singerId === singer.singerId);
+      return {
+        singerId: singer.singerId,
+        x: singer.x,
+        y: singer.y,
+        voice: singerData.voice,
+        height: singerData.height
+      };
+    });
+
+    const performance = await this.database.query('SELECT width, height FROM Performance WHERE performanceId = ?', [performanceId]);
+    const { width, height } = performance[0];
+
+    return algorithm.arrangeSingers(singers, width, height);
   }
 
   async enableSpot(performanceId, x, y) {
