@@ -27,6 +27,5 @@ and converts it into readable JSON.
 
 #### Planned changes
 * Make downloadable default template
-* Change convention to: choir equivalent to sheet; and organization to workbook \(file\)
 * Integrate with Choirmaster project
 * Handle errors elegantly
