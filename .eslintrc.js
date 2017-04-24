@@ -32,7 +32,9 @@ module.exports = {
         "new-cap": ["warn"],
         "new-parens": ["warn"],
         "no-trailing-spaces": ["warn"],
-        "no-underscore-dangle": ["warn"],
+        "no-underscore-dangle": ["warn", {
+          "allowAfterThis": true
+        }],
         "object-curly-spacing": ["warn", "always"],
         "semi-spacing": ["warn"],
         "space-before-blocks": ["warn"],
