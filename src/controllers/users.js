@@ -27,7 +27,7 @@ module.exports = function usersController(app) {
 
     let userData = {
       email: req.body.email,
-      password: passwordGenerator.generate({ length: 7, numbers: true })
+      password: passwordGenerator.generate({ length: 7, numbers: true }),
     };
 
     let userId = await req.users.create(userData);
@@ -41,12 +41,12 @@ module.exports = function usersController(app) {
     await sendInvitationEmail(userData.email, userData.password);
 
     res.status(201).send({
-      result: 'success'
+      result: 'success',
     });
   });
 
   // Used to edit a user's information: their email, for example.  This route
-  //   is disabled for security reasons (currently it alows anyone to edit any
+  //   is disabled for security reasons (currently it allows anyone to edit any
   //   account), but it can be fixed and enabled in the future.
   // app.put('/users/:id', async (req, res) => {
   //   try {

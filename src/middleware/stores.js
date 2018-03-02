@@ -30,7 +30,7 @@ module.exports = function storesMiddleware(request, response, next) {
     choirs: new ChoirStore(request.db),
     venues: new VenueStore(request.db),
     performances: new PerformanceStore(request.db),
-    grid: new GridStore(request.db)
+    grid: new GridStore(request.db),
   };
 
   Object.assign(request, stores);

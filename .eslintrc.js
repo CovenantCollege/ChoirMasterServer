@@ -21,7 +21,7 @@ module.exports = {
         "array-bracket-spacing": ["warn", "never"],
         "block-spacing": ["warn", "always"],
         "camelcase": ["warn", { "properties": "always" }],
-        "comma-dangle": ["warn", "never"],
+        "comma-dangle": ["warn", "always-multiline"],
         "comma-spacing": ["warn"],
         "comma-style": ["warn"],
         "eol-last": ["warn", "always"],

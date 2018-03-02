@@ -40,9 +40,9 @@ const validators = ['organization', 'performance', 'venue']
 //
 // Basically, express doesn't correctly handle async methods yet.  Whenever an
 //   error is thrown within one, it's swallowed silently instead of being made
-//   avaliable to the error handling middleware.  Thus we have to monkey patch
+//   available to the error handling middleware.  Thus we have to monkey patch
 //   the express router to correctly add a catch handler to report the errors.
-//   Additionally, express doesn't allow middleware to access url paramaters
+//   Additionally, express doesn't allow middleware to access url parameters
 //   (for obvious reasons, since they aren't defined at the time that middleware
 //   is loaded), so we also have to monkey-patch the router to automatically
 //   run them at the beginning of each route handler.

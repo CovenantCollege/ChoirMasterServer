@@ -94,7 +94,7 @@ class PerformanceStore extends Store {
   }
 
   async remove(performanceId) {
-      await this.database.query('DELETE FROM Grid WHERE performanceId = ?', [performanceId]);
+    await this.database.query('DELETE FROM Grid WHERE performanceId = ?', [performanceId]);
     await this.database.query('DELETE FROM Performance WHERE performanceId = ?', [performanceId]);
 
     for (let choirId of await this.getChoirIds(performanceId)) {

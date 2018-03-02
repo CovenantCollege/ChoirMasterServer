@@ -7,7 +7,7 @@ describe('the authentication module', function () {
       this.fakeUserStore = {
         checkPassword: async function (email, password) {
           return password === 'password';
-        }
+        },
       };
     });
 
@@ -32,7 +32,7 @@ describe('the authentication module', function () {
     it('should return the authentication data given a valid token', function () {
       expect(authentication.validate(this.validToken)).toMatch({
         email: 'someone@somewhere.com',
-        signedIn: true
+        signedIn: true,
       });
     });
 

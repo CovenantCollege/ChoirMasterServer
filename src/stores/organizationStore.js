@@ -18,7 +18,7 @@ let { ValidationError, NotFoundError } = require('./errors.js');
 let Store = require('./store.js');
 
 function validateOrganization(organizationData) {
-  if (organizationData == null || typeof organizationData != 'object') {
+  if (organizationData == null || typeof organizationData !== 'object') {
     throw new ValidationError('Data for new organization not found');
   }
 
@@ -31,7 +31,7 @@ class OrganizationStore extends Store {
   async find(orgId) {
     let results = await this.database.query('SELECT * from Organizations WHERE orgId = ?', [orgId]);
 
-    if (results.length == 0) {
+    if (results.length === 0) {
       throw new NotFoundError('Organization not found');
     }
 
@@ -69,15 +69,18 @@ class OrganizationStore extends Store {
   }
 
   async remove(orgId) {
-    for(let venue of await this.database.stores.venues.findAll(orgId)){
+    for (let venue of await this.database.stores.venues.findAll(orgId)) {
       await this.database.stores.venues.remove(venue.venueId);
     }
-    for(let singer of await this.database.stores.singers.findAll(orgId)){
+
+    for (let singer of await this.database.stores.singers.findAll(orgId)) {
       await this.database.stores.singers.remove(singer.singerId);
     }
-    for(let choir of await this.database.stores.choirs.findAll(orgId)){
+
+    for (let choir of await this.database.stores.choirs.findAll(orgId)) {
       await this.database.stores.choirs.remove(choir.choirId);
     }
+
     await this.database.query('DELETE FROM OrganizationMap WHERE orgId = ?', [orgId]);
     await this.database.query('DELETE FROM Organizations WHERE orgId = ?', [orgId]);
   }

@@ -24,7 +24,7 @@ function sendInvitationEmail(emailAddress, generatedPassword) {
     from: 'choirmaster@covenant.edu',
     to: emailAddress,
     subject: 'Welcome to ChoirMaster',
-    text: `Welcome to ChoirMaster, ${emailAddress}!  Your password is ${generatedPassword}`
+    text: `Welcome to ChoirMaster, ${emailAddress}!  Your password is ${generatedPassword}`,
   };
 
   return new Promise((resolve, reject) => {

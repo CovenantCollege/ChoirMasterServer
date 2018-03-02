@@ -58,8 +58,8 @@ module.exports = function choirsController(app) {
   });
 
   app.delete('/organizations/:orgId/choirs/:choirId', async (req, res) => {
-    if (await req.choirs.isInPerformance(req.params.choirId)){
-      throw new HttpResponseError('FORBIDDEN', "Choir is in a performance.");
+    if (await req.choirs.isInPerformance(req.params.choirId)) {
+      throw new HttpResponseError('FORBIDDEN', 'Choir is in a performance.');
     }
 
     await req.choirs.remove(req.params.choirId);

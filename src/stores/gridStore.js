@@ -100,7 +100,7 @@ class GridStore extends Store {
     }
 
     for (let singerIdToAdd of singersToAdd) {
-      let singer = newGrid.find(s => s.singerId == singerIdToAdd);
+      let singer = newGrid.find(s => s.singerId === singerIdToAdd);
       await this.addSinger(performanceId, singerIdToAdd, singer.x, singer.y);
     }
 
@@ -109,7 +109,7 @@ class GridStore extends Store {
     }
 
     for (let singerIdToUpdate of singersToUpdate) {
-      let newSinger = newGrid.find(s => s.singerId == singerIdToUpdate);
+      let newSinger = newGrid.find(s => s.singerId === singerIdToUpdate);
       await this.updateSinger(performanceId, singerIdToUpdate, newSinger.x, newSinger.y);
     }
   }
@@ -123,7 +123,7 @@ class GridStore extends Store {
         x: singer.x,
         y: singer.y,
         voice: singerData.voice,
-        height: singerData.height
+        height: singerData.height,
       };
     });
 

@@ -54,10 +54,10 @@ class VenueStore extends Store {
     return results[0].NumPer>0;
   }
 
-  async remove(venueId){
-    if (this.hasPerformance(venueId)){
+  async remove(venueId) {
+    if (this.hasPerformance(venueId)) {
       let results = await this.database.query('SELECT performanceId FROM Performance WHERE venueId = ?', [venueId]);
-      for (let resultRow of results){
+      for (let resultRow of results) {
         await this.database.performances.remove(resultRow.performanceId);
       }
     }

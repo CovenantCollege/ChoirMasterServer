@@ -1,9 +1,6 @@
 {
   "name": "choirmaster",
   "version": "0.0.1",
-  "engines": {
-    "node": "7.4.0"
-  },
   "description": "Choir Master",
   "main": "index.js",
   "scripts": {
